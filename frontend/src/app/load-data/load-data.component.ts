@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
+declare var jquery: any;
+declare let $: any;
 
 @Component({
   selector: 'app-load-data',
@@ -10,8 +12,9 @@ export class LoadDataComponent implements OnInit {
   arraybuffer:any;
   file!: File;
 
+
   incomingfile(event : any) {
-    this.file= event.target.files[0]; 
+    this.file= event.target.files[0];
 
   }
 
@@ -29,6 +32,24 @@ export class LoadDataComponent implements OnInit {
       console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
     }
     filereader.readAsArrayBuffer(this.file);
+    var data =
+    {
+      'btn': 'allday',
+    }
+    $.ajax
+    ({
+      type: "POST",
+      url: "/ajax",
+      data: JSON.stringify(data, null, '\t'),
+      contentType: 'application/json;charset=UTF-8',
+      success: function (result) {
+        console.log('ajax successed');
+      },
+      error: function (result) {
+        console.log('ajax error');
+      }
+    })
+
   }
   constructor() { }
 

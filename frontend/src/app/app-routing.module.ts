@@ -5,6 +5,7 @@ import { LoadDataComponent } from './load-data/load-data.component';
 
 
 const routes: Routes = [
+ //{path : '', redirectTo: '/', pathMatch: 'full'},
  {path : 'load-data', component:LoadDataComponent},
  {path : 'experiment', component:ExperimentComponent},
 ];
