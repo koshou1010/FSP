@@ -1,0 +1,10 @@
+p {
+    font-family: Lato;
+  }
+
+.btn span.homeicon {
+  background: url(../assets/img/homepage.ico) no-repeat;
+  float: left;
+  width: 40px;
+  height: 40px;
+}
