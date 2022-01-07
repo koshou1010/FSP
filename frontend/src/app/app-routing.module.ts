@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ExperimentComponent } from './experiment/experiment.component';
-import { LoadDataComponent } from './load-data/load-data.component';
+import { LoadDataComponent } from './load_data/load_data.component';
 
 
 const routes: Routes = [
  //{path : '', redirectTo: '/', pathMatch: 'full'},
- {path : 'load-data', component:LoadDataComponent},
+  { path: 'load_data', component:LoadDataComponent},
  {path : 'experiment', component:ExperimentComponent},
 ];
 

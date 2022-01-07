@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LoadDataComponent } from './load-data.component';
+import { LoadDataComponent } from './load_data.component';
 
 describe('LoadDataComponent', () => {
   let component: LoadDataComponent;

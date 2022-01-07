@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
-declare var jquery: any;
-declare let $: any;
+import * as $ from 'jquery';
+
+
 
 @Component({
-  selector: 'app-load-data',
-  templateUrl: './load-data.component.html',
-  styleUrls: ['./load-data.component.css']
+  selector: 'app-load_data',
+  templateUrl: './load_data.component.html',
+  styleUrls: ['./load_data.component.css']
 })
 export class LoadDataComponent implements OnInit {
   arraybuffer:any;
@@ -51,8 +52,9 @@ export class LoadDataComponent implements OnInit {
     })
 
   }
-  constructor() { }
 
+
+  constructor() { }
   ngOnInit(): void {
   }
 
