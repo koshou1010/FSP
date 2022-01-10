@@ -6,10 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./experiment.component.css']
 })
 export class ExperimentComponent implements OnInit {
+  plot_blank_dom: any;
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    console.log('in ex');
+    this.plot_blank_dom.destroy();
   }
 
 }

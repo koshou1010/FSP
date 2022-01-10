@@ -7,7 +7,7 @@ import { LoadDataComponent } from './load_data/load_data.component';
 const routes: Routes = [
  //{path : '', redirectTo: '/', pathMatch: 'full'},
   { path: 'load_data', component:LoadDataComponent},
- {path : 'experiment', component:ExperimentComponent},
+  {path : 'experiment', component:ExperimentComponent},
 ];
 
 @NgModule({
