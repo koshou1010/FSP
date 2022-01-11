@@ -10,10 +10,12 @@ declare var uPlot;
   styleUrls: ['./load_data.component.css']
 })
 export class LoadDataComponent implements OnInit {
+
   loading_data = false;
   arraybuffer:any;
   file!: File;
   plot_blank_dom:any;
+  worksheet : any;
 
   plot_blank_fig() {
     if (this.loading_data == false){
@@ -48,41 +50,24 @@ export class LoadDataComponent implements OnInit {
     }
   }
 
-  plot_data(){
-    if(this.loading_data == false){
-      let xs = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30];
-      let vals = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10];
-      let data = [
-        xs,
-        xs.map((t, i) => vals[Math.floor(Math.random() * vals.length)]),
-        xs.map((t, i) => vals[Math.floor(Math.random() * vals.length)]),
-        xs.map((t, i) => vals[Math.floor(Math.random() * vals.length)]),
-      ];
-      const opts = {
-        width: 800,
-        height: 400,
-        title: "Area Fill",
-        scales: {
-          x: {
-            time: false,
-          },
-        },
-        series: [
-          {},
-          {
-            stroke: "red",
-          },
-          {
-            stroke: "green",
-          },
-          {
-            stroke: "blue",
-          },
-        ],
-      };
-      let plot_data_dom = new uPlot(opts, data, document.body);
+  process_data(worksheet){
+    let data = XLSX.utils.sheet_to_json(worksheet);
+    let sensor_list = ['NO2', 'SO2', 'O3', 'CO', 'Temp']
+    var total_data_array = new Array(sensor_list.length);
+    for (let k = 0; k < sensor_list.length; k++) {
+      var tmp_list = []
+      for (let i = 0; i < 10 ; i++){
+        // console.log(data[i]['NO2']);
+        tmp_list.push(data[i][sensor_list[k]]);
+      }
+      total_data_array[k] = tmp_list;
     }
+
+
+
+    return total_data_array;
   }
+
 
   incomingfile(event : any) {
     this.file= event.target.files[0];
@@ -93,15 +78,25 @@ export class LoadDataComponent implements OnInit {
     let filereader = new FileReader();
     filereader.onload = (e) => {
       this.arraybuffer = filereader.result;
-      var data = new Uint8Array(this.arraybuffer);
+      let data = new Uint8Array(this.arraybuffer);
       var arr = new Array();
       for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);
       var bstr = arr.join("");
       var workbook = XLSX.read(bstr, {type:"binary"});
       var first_sheet_name = workbook.SheetNames[0];
-      var worksheet = workbook.Sheets[first_sheet_name];
-      console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));
+      this.worksheet = workbook.Sheets[first_sheet_name];
+      let cols_list = XLSX.utils.sheet_to_json(this.worksheet);
+      let keys = Object.keys(cols_list[0]).sort();
+      console.log(keys);
+      var tmp_list = []
+      for (let i = 0; i < keys.length; i++) {
+        tmp_list.push(keys[i]);
+      }
+      var id = "temp0";
+      var li = document.getElementById(id);
+      li.innerHTML = tmp_list.toString();
     }
+
     filereader.readAsArrayBuffer(this.file);
     var data =
     {
@@ -120,16 +115,63 @@ export class LoadDataComponent implements OnInit {
         console.log('ajax error');
       }
     })
-    this.plot_data();
+
+  }
+  plot_data(){
     this.loading_data = true;
-    if (this.loading_data == true){
+    if (this.loading_data == true) {
       this.plot_blank_dom.destroy();
     }
-  }
+    var data_cleaned = this.process_data(this.worksheet);
+    let xs = [1,2,3,4,5,6,7,8,9,10];
+    let vals = data_cleaned;
+    let data = [
+      xs,
+      vals[0],
+      vals[1],
+      vals[2],
+      vals[3],
+      vals[4],
 
+    ];
+    const opts = {
+      width: 800,
+      height: 400,
+      title: "Plot Data",
+      scales: {
+        x: {
+          time: false,
+        },
+      },
+      series: [
+        {},
+        {
+          label: "NO2",
+          stroke: "red",
+        },
+        {
+          label: "SO2",
+          stroke: "green",
+        },
+        {
+          label: "O3",
+          stroke: "blue",
+        },
+        {
+          label: "CO",
+          stroke: "orange",
+        },
+        {
+          label: "Temp",
+          stroke: "purple",
+        },
+      ],
+    };
+    let plot_data_dom = new uPlot(opts, data, document.body);
+
+  }
   constructor() { }
   ngOnInit(): void {
-    console.log('HI');
     if (this.loading_data == false){
       this.plot_blank_fig();
     }

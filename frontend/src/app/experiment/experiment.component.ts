@@ -11,7 +11,6 @@ export class ExperimentComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('in ex');
     this.plot_blank_dom.destroy();
   }
 
