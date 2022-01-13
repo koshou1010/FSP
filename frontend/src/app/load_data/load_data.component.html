@@ -1,11 +1,26 @@
-<input type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
-<button type="button" class="btn btn-info" (click)="upload()" >Upload</button>
+<div>
+  <input type="file" style="display: inline-block;" (change)="incomingfile($event)" accept=".xlsx">
+  <button type="button" id = "button" class="btn btn-info" (click)="upload()" >Upload</button>
+</div>
 <br><br>
-<ul>
-  <li id="temp0"></li>
-</ul>
-<button type="button" class="btn btn-info" (click)="plot_data()" >Plot</button>
 
+<input type='checkbox' id='cbox1'/>
+<label id='label1' for="button"></label>
+<br>
+<input type='checkbox' id='cbox2'/>
+<label id='label2' for="button"></label>
+<br>
+<input type='checkbox' id='cbox3'/>
+<label id='label3' for="button"></label>
+<br>
+<input type='checkbox' id='cbox4'/>
+<label id='label4' for="button"></label>
+<br>
+<input type='checkbox' id='cbox5'/>
+<label id='label5' for="button"></label>
+<br>
+
+<button type="button" class="btn btn-info" (click)="plot_data()" >Plot</button>
 <br><br><br>
 
 
