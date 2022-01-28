@@ -3,7 +3,7 @@ import * as XLSX from 'xlsx';
 import * as $ from 'jquery';
 import { ThrowStmt } from '@angular/compiler';
 declare var uPlot;
-const COLOR_MAP = ['#4E79A7', '#A0CBE8', '#F28E2B', '#FFBE7D', '#59A14F', '#8CD17D', '#B6992D', '#F1CE63', '#499894', '#86BCB6', '#E15759', '#FF9D9A', '#79706E', '#BAB0AC', '#D37295', '#FABFD2', '#B07AA1', '#D4A6C8', '#9D7660', '#D7B5A6']
+const COLOR_MAP = ['#FFBE7D', '#4E79A7', '#F28E2B', '#A0CBE8', '#59A14F', '#8CD17D', '#B6992D', '#F1CE63', '#499894', '#86BCB6', '#E15759', '#FF9D9A', '#79706E', '#BAB0AC', '#D37295', '#FABFD2', '#B07AA1', '#D4A6C8', '#9D7660', '#D7B5A6']
 
 @Component({
   selector: 'app-load_data',
@@ -159,7 +159,6 @@ export class LoadDataComponent implements OnInit {
         console.log('its5');
       }
     });
-
   }
 
   plot_data(){
@@ -210,6 +209,12 @@ export class LoadDataComponent implements OnInit {
   ngOnInit(): void {
     if (this.loading_data == false){
       this.plot_blank_fig();
+    }
+  }
+  ngOnDestroy(): void{
+    this.plot_blank_dom.destroy();
+    if (this.plot_done == true){
+      this.plot_data_dom.destroy();
     }
   }
 }

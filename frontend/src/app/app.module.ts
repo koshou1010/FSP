@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoadDataComponent } from './load_data/load_data.component';
 import { ExperimentComponent } from './experiment/experiment.component';
+import { ParsingDataComponent } from './parsing-data/parsing-data.component';
 
 
 @NgModule({
@@ -12,6 +13,7 @@ import { ExperimentComponent } from './experiment/experiment.component';
     AppComponent,
     LoadDataComponent,
     ExperimentComponent,
+    ParsingDataComponent,
   ],
   imports: [
     BrowserModule,
